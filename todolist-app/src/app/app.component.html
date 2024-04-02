@@ -51,14 +51,16 @@
       <div id="taskContent">
         <div *ngFor="let task of tasks">
           <app-task [task]="task" [tasks]="tasks" (taskbarPercent)="taskbarPercentVal()"
-            (taskToUpdate)="currentTaskEdit($event)" (taskToDelete)="pressDeleteCurrentTask($event)"></app-task>
+            (taskToUpdate)="currentTask($event)" (taskToDelete)="currentTask($event)"></app-task>
         </div>
       </div>
+      
+      <!-- Edit Modal -->
       <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Tasks Nro. {{taskActual.id}}</h1>
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Task Nro. {{taskActual.id}}</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -84,8 +86,51 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-              <input type="button" class="btn btn-primary" id="editTaskBtn" name="edit-task-btn" value="Save Changes"
-                (click)="pressEditCurrentTask(taskActual.id)">
+              <input type="button" class="btn btn-outline-success" id="editTaskBtn" name="edit-task-btn"
+                value="Guardar cambios" (click)="pressEditCurrentTask(taskActual.id)">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delete Modal -->
+      <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar task Nro. {{taskActual.id}}</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>Estás apunto de eliminar una task de forma permanente:</p>
+              <div class="container bg-light bg-gradient">
+                <div class="row row-cols-3">
+                  <div class="col-3">
+                    <p><strong>Título</strong></p>
+                  </div>
+                  <div class="col-1">
+                    <p><strong>-</strong></p>
+                  </div>
+                  <div class="col-8">
+                    {{taskActual.title}}
+                  </div>
+                  <div class="col-3">
+                    <p><strong>Descripción</strong></p>
+                  </div>
+                  <div class="col-1">
+                    <p><strong>-</strong></p>
+                  </div>
+                  <div class="col-8">
+                    {{taskActual.description}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <p><strong>¿Deseas continuar?</strong></p>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, no lo elimines</button>
+              <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal"
+                (click)="pressDeleteCurrentTask(taskActual.id)">Sí, elimínalo</button>
             </div>
           </div>
         </div>
@@ -93,8 +138,9 @@
     </ng-template>
   </div>
 
-  <div class="progress" role="progressbar">
-    <div class="progress-bar bg-success" [style]="'width:' + taskbarValue + '%'"></div>
+  <p>Progreso:</p>
+  <div class="progress my-2" role="progressbar">
+    <div class="progress-bar bg-success" [style]="'width:' + taskbarValue + '%'">{{taskbarValue}}%</div>
   </div>
 
 

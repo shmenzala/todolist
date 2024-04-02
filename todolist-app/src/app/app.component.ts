@@ -98,8 +98,10 @@ export class AppComponent implements OnInit {
     );
   }
 
-  public currentTaskEdit(currentTask: Tasks): void {
+  public currentTask(currentTask: Tasks): void {
     this.taskActual = currentTask
+    console.log(this.taskActual);
+
   }
 
   public pressEditCurrentTask(taskId: number): void {
@@ -134,10 +136,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  public pressDeleteCurrentTask(currentTask: Tasks): void {
-    this.taskActual = currentTask
-    const taskId: number = this.taskActual.id;
-
+  public pressDeleteCurrentTask(taskId: number): void {
     this.taskService.deleteTask(taskId).subscribe(
       {
         next: (response: string) => {
